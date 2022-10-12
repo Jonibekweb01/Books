@@ -14,7 +14,6 @@ function dom(el, lists) {
         let h1 = document.createElement('h1');
         let p = document.createElement('p');
         let language = document.createElement('span');
-        let link = document.createElement('a');
         let pageSpan = document.createElement('span');
         let spanTitle = document.createElement('span');
         let idSpan = document.createElement('id');
@@ -22,11 +21,19 @@ function dom(el, lists) {
 
         // --------------- ATRIBUTES ---------------
 
-        link.href = el.link;
-        link.classList.add('list-group-item')
         bookmarked.classList.add('trueSpan');
         idSpan.classList.add('idSpan');
         h1.classList.add("name")
+
+        // IMG 
+
+        let img = document.createElement("img");
+        img.src = `./books/${el.imageLink}`;
+        img.style.width = "100%";
+        item.appendChild(img)
+
+        // IMG 
+
 
         // --------------- TEXTS ---------------
 
@@ -34,7 +41,6 @@ function dom(el, lists) {
         h1.textContent = el.author;
         p.textContent = `Country - ${el.country}`;
         language.textContent = `Language ${el.language}`;
-        link.textContent = el.link;
         spanTitle.textContent = `Title -  ${el.title}`;
         idSpan.textContent = `Year ${el.year} `;
         bookmarked.textContent = el.bookmarked;
@@ -45,7 +51,6 @@ function dom(el, lists) {
         item.appendChild(h1);
         item.appendChild(p);
         item.appendChild(language);
-        item.appendChild(link);
         item.appendChild(spanTitle);
         item.appendChild(idSpan);
         item.appendChild(bookmarked);
@@ -56,10 +61,12 @@ function dom(el, lists) {
 dom(books, list)
 
 var localName = JSON.parse(window.localStorage.getItem('list'));
+
 elSelectName.addEventListener('change', function (e) {
     e.preventDefault();
 
     let selectArrayName = localName || [];
+    dom(selectArrayName, list);
     let selectValName = elSelectName.value;
     list.innerHTML = '';
 
