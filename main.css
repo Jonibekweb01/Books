@@ -1,136 +1,120 @@
 body {
-  background-image: url("./back.jpg");
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
 }
 
-section {
-  margin-top: 140px;
+.darker {
+  background-color: #000;
 }
 
-.select {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  max-width: 390px;
+.darker > main > section > div > h1 {
+  color: #fff;
+}
+.darker > main > section > div > div > button {
+  color: #000;
+  background-color: #fff;
+}
+
+.container {
   width: 100%;
-  z-index: 100;
-  border: none;
-  background-color: rgb(205, 146, 63);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
+
+.all-select {
+  display: flex;
+  align-items: flex-start;
+  gap: 90px;
+  margin-top: 50px;
+}
+
+.title {
+  margin: 50px 0 100px 0;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+}
+
 .selects {
-  position: fixed;
-  top: 80px;
-  left: 20px;
-  max-width: 390px;
-  width: 100%;
-  z-index: 100;
-  background-color: rgb(205, 146, 63);
-  border: none;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
 }
 
-.selectss {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  max-width: 390px;
+select {
+  padding: 8px;
+  border-radius: 5px;
   width: 100%;
-  background-color: rgb(205, 146, 63);
-  border: none;
-  z-index: 100;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  max-width: 180px;
+  margin-bottom: 10px;
 }
 
-.selectsss {
-  position: fixed;
-  top: 80px;
-  right: 20px;
-  max-width: 390px;
-  width: 100%;
-  z-index: 100;
-  border: none;
-  background-color: rgb(205, 146, 63);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 60px;
+  background-color: #fff;
+}
+
+input {
+  margin-left: 4px;
+  outline: none;
+  border: 0;
+}
+
+button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
 }
 
 ul {
   display: flex;
   flex-wrap: wrap;
-  list-style: none;
+  justify-content: space-between;
+  align-items: center;
   margin: 0;
   padding: 0;
-  gap: 30px;
-  margin-top: 20px;
+  list-style-type: none;
 }
 
-ul > li {
-  max-width: 400px;
+li {
+  margin-right: 20px;
+  border: 1px solid;
   width: 100%;
-  background-color: rgba(205, 146, 63, 0.666);
-  color: white;
-  border: 3px solid rgb(255, 136, 0);
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 14px;
-  transition: 0.2s ease;
+  max-width: 300px;
+  border-radius: 12px;
+  background-color: #f2f2f2;
 }
 
-ul > li:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+h2 {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  border-bottom: 1px solid;
+  text-align: center;
 }
 
-.list-group-item {
-  overflow: hidden;
+span {
+  display: block;
+  margin-left: 10px;
+  margin-top: 6px;
+  font-weight: 400;
 }
 
-h1,
-p,
-span,
 a {
   display: block;
-  margin-bottom: 15px;
-}
-
-.name {
-  font-size: 26px;
-}
-
-.idSpan {
-  display: block;
-  margin-bottom: 20px;
-}
-
-.trueSpan {
-  display: inline-block;
-  background-color: red;
-  color: yellow;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: 0.2s ease;
-  cursor: pointer;
-}
-
-.trueSpan:hover {
-  opacity: 0.9;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-}
-
-@media screen and (max-width: 565px) {
-  body {
-    padding: 20px;
-  }
-
-  .select {
-    max-width: 400px;
-    width: 100%;
-  }
+  margin: 6px 0 6px 10px;
 }

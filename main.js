@@ -3,6 +3,7 @@ let elSelectName = document.querySelector('.select-js');
 let elSelectYear = document.querySelector('.selectyear-js');
 let elSelectPage = document.querySelector('.selectpage-js');
 let elSelectLanguage = document.querySelector('.selectlanguage-js');
+let elBtn = document.querySelector('.js-mode')
 
 
 function dom(el, lists) {
@@ -147,6 +148,9 @@ elSelectLanguage.addEventListener('change', function (e) {
     list.innerHTML = '';
 
     books.forEach(el => {
+        if (selectValLang == 'All') {
+            dom(books, list);
+        }
         if (el.language.includes(selectValLang)) {
             langArray.push(el);
         }
@@ -155,4 +159,22 @@ elSelectLanguage.addEventListener('change', function (e) {
     dom(langArray, list);
 })
 
+
+let theme = false;
+
+elBtn.addEventListener('click', function () {
+    theme = !theme;
+    window.localStorage.setItem('theme', theme ? 'dark' : 'light');
+    changeTheme();
+});
+
+function changeTheme() {
+    if (window.localStorage.getItem('theme') == 'dark') {
+        document.body.classList.add('darker');
+    } else {
+        document.body.classList.remove('darker');
+    }
+}
+
+changeTheme();
 
