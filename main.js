@@ -147,9 +147,6 @@ elSelectLanguage.addEventListener('change', function (e) {
     list.innerHTML = '';
 
     books.forEach(el => {
-        if (selectValLang == 'All') {
-            dom(books, list);
-        }
         if (el.language.includes(selectValLang)) {
             langArray.push(el);
         }
