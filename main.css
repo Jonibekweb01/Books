@@ -96,7 +96,8 @@ li {
   width: 100%;
   max-width: 300px;
   border-radius: 12px;
-  background-color: #f2f2f2;
+  background-color: #fff;
+  padding: 20px;
 }
 
 h2 {
