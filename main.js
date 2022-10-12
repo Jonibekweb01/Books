@@ -6,6 +6,7 @@ let elSelectLanguage = document.querySelector('.selectlanguage-js');
 
 
 function dom(el, lists) {
+    lists.innerHTML = "";
     el.forEach(el => {
 
         // --------------- CREATING ---------------
@@ -58,7 +59,8 @@ function dom(el, lists) {
         lists.appendChild(item);
     })
 }
-dom(books, list)
+
+dom(JSON.parse(window.localStorage.getItem("list")) || books, list);
 
 var localName = JSON.parse(window.localStorage.getItem('list'));
 
@@ -97,6 +99,7 @@ elSelectYear.addEventListener('change', function (e) {
         selectArrayYear = books.sort((a, b) => b.year - a.year);
     }
 
+    window.localStorage.setItem('list', JSON.stringify(selectArrayYear));
     dom(selectArrayYear, list);
 });
 
@@ -116,6 +119,7 @@ elSelectPage.addEventListener('change', function (e) {
         selectArrayPage = books.sort((a, b) => b.pages - a.pages);
     }
 
+    window.localStorage.setItem('list', JSON.stringify(selectArrayPage));
     dom(selectArrayPage, list);
 });
 
@@ -150,6 +154,7 @@ elSelectLanguage.addEventListener('change', function (e) {
             langArray.push(el);
         }
     })
+    window.localStorage.setItem('list', JSON.stringify(langArray));
     dom(langArray, list);
 })
 
