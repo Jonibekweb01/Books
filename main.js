@@ -1,31 +1,30 @@
 let list = document.querySelector('.list');
+let elList = document.querySelector('.savedList');
+let box = document.querySelector('.box');
+let backBtn = document.querySelector('.backBtn');
 let elSelectName = document.querySelector('.select-js');
 let elSelectYear = document.querySelector('.selectyear-js');
 let elSelectPage = document.querySelector('.selectpage-js');
 let elSelectLanguage = document.querySelector('.selectlanguage-js');
 let elBtn = document.querySelector('.js-mode')
 
+const savedBooks = [];
 
-function dom(el, lists) {
+// ------ FIRST-LIST ------  
+
+function dom(array, lists) {
     lists.innerHTML = "";
-    el.forEach(el => {
+    array.forEach(el => {
 
         // --------------- CREATING ---------------
 
         let item = document.createElement('li');
         let h1 = document.createElement('h1');
-        let p = document.createElement('p');
-        let language = document.createElement('span');
         let pageSpan = document.createElement('span');
-        let spanTitle = document.createElement('span');
         let idSpan = document.createElement('id');
-        let bookmarked = document.createElement('span');
+        let bookmarkBtn = document.createElement('button');
+        let modalBtn = document.createElement('button');
 
-        // --------------- ATRIBUTES ---------------
-
-        bookmarked.classList.add('trueSpan');
-        idSpan.classList.add('idSpan');
-        h1.classList.add("name")
 
         // IMG 
 
@@ -34,34 +33,75 @@ function dom(el, lists) {
         img.style.width = "100%";
         item.appendChild(img)
 
-        // IMG 
 
+        // --------------- ATRIBUTES ---------------
+
+        idSpan.classList.add('idSpan');
+        h1.classList.add("name");
+        bookmarkBtn.classList.add('bookmark-btn')
+        modalBtn.classList.add('modal-btn');
+        h1.classList.add('h2');
+        item.classList.add('li');
 
         // --------------- TEXTS ---------------
 
-
         h1.textContent = el.author;
-        p.textContent = `Country - ${el.country}`;
-        language.textContent = `Language ${el.language}`;
-        spanTitle.textContent = `Title -  ${el.title}`;
-        idSpan.textContent = `Year ${el.year} `;
-        bookmarked.textContent = el.bookmarked;
-        pageSpan.textContent = `Pages ${el.pages} `;
+        // pageSpan.textContent = `Pages ${el.pages} `;
+        bookmarkBtn.textContent = "Save";
+        modalBtn.textContent = "Modal";
 
         // --------------- APPENDING ---------------
 
+        bookmarkBtn.dataset.bookId = el.id;
+        modalBtn.dataset.bookId = el.id;
+
         item.appendChild(h1);
-        item.appendChild(p);
-        item.appendChild(language);
-        item.appendChild(spanTitle);
-        item.appendChild(idSpan);
-        item.appendChild(bookmarked);
         item.appendChild(pageSpan);
+        item.appendChild(bookmarkBtn)
+        item.appendChild(modalBtn)
         lists.appendChild(item);
     })
 }
 
+// ------ SECOND-LIST ------ 
+
+const doming = (array2, node) => {
+    node.innerHTML = '';
+    array2.forEach(element => {
+        let newItem = document.createElement('li');
+        let h2 = document.createElement('h2');
+        let delBtn = document.createElement('button');
+
+        h2.textContent = element.author;
+        newItem.appendChild(h2);
+        h2.classList.add('res-title');
+        delBtn.textContent = "X";
+        delBtn.classList.add('delete')
+        delBtn.dataset.deleteId = element.id;
+        newItem.classList.add('res-item');
+        newItem.style.display = "flex";
+        newItem.style.gap = "20px";
+
+        newItem.appendChild(delBtn);
+        node.appendChild(newItem);
+    })
+}
+
+// ------ THIRd-LIST ------ 
+
+// const modalFunc = (array3, node) => {
+
+//     array3.forEach((el) => {
+
+//     })
+
+// }
+
+
 dom(JSON.parse(window.localStorage.getItem("list")) || books, list);
+
+// ------ ADDING-ADDVENTLISTENER-FOR-SELECTS ------ 
+
 
 var localName = JSON.parse(window.localStorage.getItem('list'));
 
@@ -84,7 +124,6 @@ elSelectName.addEventListener('change', function (e) {
     dom(selectArrayName, list);
 })
 
-
 elSelectYear.addEventListener('change', function (e) {
     e.preventDefault();
 
@@ -103,7 +142,6 @@ elSelectYear.addEventListener('change', function (e) {
     window.localStorage.setItem('list', JSON.stringify(selectArrayYear));
     dom(selectArrayYear, list);
 });
-
 
 elSelectPage.addEventListener('change', function (e) {
     e.preventDefault();
@@ -124,12 +162,17 @@ elSelectPage.addEventListener('change', function (e) {
     dom(selectArrayPage, list);
 });
 
+
+// ------ CREATE-ELEMENT ------  
+
 let setArray = [];
 
 for (i of books) {
     let toArray = i.language;
     setArray.push(toArray)
 }
+
+// ------ SET ------  
 
 const set = new Set(setArray)
 
@@ -159,6 +202,7 @@ elSelectLanguage.addEventListener('change', function (e) {
     dom(langArray, list);
 })
 
+// ------ DARK-MODE ------ 
 
 let theme = false;
 
@@ -168,13 +212,67 @@ elBtn.addEventListener('click', function () {
     changeTheme();
 });
 
+// ------ CHANGING THEME ------  
+
 function changeTheme() {
     if (window.localStorage.getItem('theme') == 'dark') {
         document.body.classList.add('darker');
+        document.body.classList.remove('light');
     } else {
         document.body.classList.remove('darker');
+        document.body.classList.add('light');
     }
 }
 
 changeTheme();
+
+// ------ ADDEVENTLISTENT-FOR-LIST ------  
+
+list.addEventListener('click', (evt) => {
+    if (evt.target.matches(".bookmark-btn")) {
+        let clickedId = evt.target.dataset.bookId;
+
+        let finded = books.find((el) => el.id == clickedId);
+
+        if (!savedBooks.includes(finded)) {
+            savedBooks.push(finded);
+            doming(savedBooks, elList);
+        }
+    }
+    if (evt.target.matches('.modal-btn')) {
+        box.classList.add('open');
+        box.innerHTML = "";
+        const modalId = evt.target.dataset.bookId;
+        const fined = books.find(el => el.id == modalId);
+        let boxInner = document.createElement('div');
+        let h3 = document.createElement('h3');
+        let p = document.createElement('p');
+        let backBtn = document.createElement('button');
+        boxInner.setAttribute('class', "d-flex justify-content-center align-items-center text-center flex-column h-100")
+        h3.textContent = fined.author;
+        p.textContent = fined.country;
+        backBtn.textContent = "X";
+        backBtn.classList.add('backBtn');
+        boxInner.appendChild(h3);
+        boxInner.appendChild(p);
+        boxInner.appendChild(backBtn);
+        box.appendChild(boxInner)
+    }
+})
+
+box.addEventListener('click', (evt) => {
+    if (evt.target.matches('.backBtn')) {
+        box.classList.remove('open');
+    }
+})
+
+elList.addEventListener("click", (e) => {
+    if (e.target.matches(".delete")) {
+        let deleteItemId = e.target.dataset.deleteId;
+        const spliced = savedBooks.findIndex(el => el.id == deleteItemId);
+        savedBooks.splice(spliced, 1);
+        doming(savedBooks, elList);
+        // console.log(spliced);
+    }
+})
 
